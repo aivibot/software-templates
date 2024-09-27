@@ -6,7 +6,7 @@ metadata:
   tags:
     - java
   links:
-    - url: https://devspaces.apps.cluster-example.com/#${{values.destination}}?storageType=per-workspace
+    - url: https://devspaces.apps.cluster-28b42.28b42.sandbox2394.opentlc.com/#${{values.destination}}?storageType=per-workspace
       title: Open in OpenShift Dev Spaces
       icon: web
   annotations:
