@@ -19,5 +19,5 @@ spec:
   system: ${{values.application}}
   consumesApis:
 {% for api in values.apis %}
-    - {{ api.split('/')[1] }}
+    - ${{ api.split('/')[1] }}
 {% endfor %}
