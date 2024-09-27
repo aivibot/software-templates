@@ -275,7 +275,7 @@
                             <artifact>
                                 <groupId>${{ values.service_registry_group_id }}</groupId>
                                 <artifactId>${{ api.split('/')[1] }}</artifactId>
-                                <file>${project.build.directory}/classes/api-registry/{{ api.split('/')[1] }}-api.json</file>
+                                <file>${project.build.directory}/classes/api-registry/${{ api.split('/')[1] }}-api.json</file>
                                 <overwrite>true</overwrite>
                             </artifact>
                         {% endfor %}
