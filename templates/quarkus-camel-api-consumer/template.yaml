@@ -17,7 +17,6 @@ spec:
         - java_package
         - application
         - description
-        - apis
       properties:
         component_id:
           title: Name
