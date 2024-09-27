@@ -15,9 +15,10 @@
             name: customerId
         - to:
             id: to-4437
-            uri: rest-openapi:api-registry/${{ values.apis[0].split('/')[1] }}-api.json#operationIdUpdateMe
+            uri: rest-openapi:api-registry/${{ values.apis[0].split('/')[1]}}-api.json#operationIdUpdateMe
             parameters:
               basePath: /api/v1
+              host: https://${{ values.apis[0].split('/')[1]}}-${{ parameters.application.split("/")[1] }}-dev.apps.cluster.com
         - log:
             id: log-3873
             message: ${body}
