@@ -72,6 +72,15 @@ spec:
           ui:options:
             catalogFilter:
               - kind: API
+        service_registry_provider_url:
+          title: Service Registry Provider URL
+          type: string
+          description: Apicurio Registry Host
+          default: http://apicurioregistry-sql.apicurio-registry.router-default.apps.cluster-28b42.28b42.sandbox2394.opentlc.com
+        service_registry_group_id:
+          title: Service Registry Group ID
+          type: string
+          default: com.redhat
 
   steps:
     - id: template
@@ -89,8 +98,13 @@ spec:
           java_package: ${{ parameters.java_package }}
           owner: ${{ parameters.owner }}
           destination: https://github.com/aivibot/${{ parameters.application.split("/")[1] }}-${{ parameters.component_id }}-service
+          project_slug: aivibot/${{ parameters.application.split("/")[1] }}-${{ parameters.component_id }}-service
           application: ${{ parameters.application }}
+          service_id: ${{ parameters.component_id }}-service
+          system_label: system=${{ parameters.application.split("/")[1] }}
           apis: ${{ parameters.apis }}
+          service_registry_provider_url: ${{ parameters.service_registry_provider_url }}
+          service_registry_group_id: ${{ parameters.service_registry_group_id }}
 
     - id: publish
       name: publish component source repository
