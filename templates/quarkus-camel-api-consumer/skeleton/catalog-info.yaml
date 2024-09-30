@@ -6,7 +6,7 @@ metadata:
   tags:
     - java
   links:
-    - url: https://devspaces.apps.cluster-28b42.28b42.sandbox2394.opentlc.com/?storageType=per-workspace#${{values.destination}}
+    - url: https://devspaces.apps.cluster-7k5gg.7k5gg.sandbox1289.opentlc.com/?storageType=per-workspace#${{values.destination}}
       title: Open in OpenShift Dev Spaces
       icon: web
     - url: https://hawtio-online.apps.cluster-example.com/online/discover?namespace=${{values.system_label}}
