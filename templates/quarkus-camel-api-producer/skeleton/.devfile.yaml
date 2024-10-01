@@ -24,6 +24,8 @@ components:
           value: 0.0.0.0
         - name: MAVEN_OPTS
           value: "-Dmaven.repo.local=/home/user/.m2/repository"
+        - name: QUARKUS_ANALYTICS_DISABLED
+          value: "true"
       memoryLimit: 5Gi
       cpuLimit: 2500m
       sourceMapping: $PROJECT_SOURCE
