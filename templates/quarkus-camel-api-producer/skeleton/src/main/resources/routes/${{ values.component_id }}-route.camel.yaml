@@ -7,12 +7,12 @@
     from:
       uri: direct:operationIdUpdateMe
       parameters:
-        exchangePattern: InOut
+        {}
       steps:
         - unmarshal:
             json:
               library: Jackson
         - log:
-            message: "Request body: ${body}."
+            message: "${body}"
         - setBody:
-            simple: '{ "received": true }'
+            simple: '{"received": true }'
