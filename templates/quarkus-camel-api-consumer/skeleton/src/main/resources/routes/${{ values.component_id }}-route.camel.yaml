@@ -18,7 +18,7 @@
             uri: rest-openapi:api-registry/${{ values.apis[0].split('/')[1]}}-api.json#operationIdUpdateMe
             parameters:
               basePath: /api/v1
-              host: https://${{ values.apis[0].split('/')[1]}}-${{ values.application.split("/")[1] }}-dev.apps.cluster-qmb6w.qmb6w.sandbox1011.opentlc.com
+              host: https://${{ values.apis[0].split('/')[1]}}-${{ values.application.split("/")[1] }}-dev.apps.cluster-pjj7j.pjj7j.sandbox40.opentlc.com
         - log:
             id: log-3873
             message: ${body}
