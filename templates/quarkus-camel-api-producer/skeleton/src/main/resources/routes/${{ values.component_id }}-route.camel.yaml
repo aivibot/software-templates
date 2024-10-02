@@ -1,5 +1,6 @@
 - rest:
     openApi:
+      missingOperation: mock
       specification: api-registry/${{ values.api_id }}-api.json
 - route:
     id: route-endpoint-4325
