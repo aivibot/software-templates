@@ -6,10 +6,10 @@ metadata:
   tags:
     - java
   links:
-    - url: https://devspaces.apps.cluster-pjj7j.pjj7j.sandbox40.opentlc.com/?storageType=per-workspace#${{values.destination}}
+    - url: https://devspaces.apps.cluster-k6ht9.k6ht9.sandbox1066.opentlc.com/?storageType=per-workspace#${{values.destination}}
       title: Open in OpenShift Dev Spaces
       icon: web
-    - url: https://hawtio-online-hawtio-operator.apps.cluster-pjj7j.pjj7j.sandbox40.opentlc.com/online/discover?namespace=${{values.system_label}}
+    - url: https://hawtio-online-hawtio-operator.apps.cluster-k6ht9.k6ht9.sandbox1066.opentlc.com/online/discover?namespace=${{values.system_label}}
       title: Open in HawtIO
       icon: web
 spec:
