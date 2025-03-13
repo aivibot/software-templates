@@ -28,5 +28,7 @@ spec:
   {% endif %}
   {% if values.consumes_apis %}
   consumesApis:
-    - ${{ values.consumed_api_name }}
+  {% for consumed_api in values.consumed_apis %}
+    - ${{ consumed_api.split('/')[1] }}
+  {% endfor %}
   {% endif %}

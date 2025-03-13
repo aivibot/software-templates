@@ -7,7 +7,7 @@ metadata:
 spec:
   owner: backstage-admins
   type: service
-  
+
   parameters:
     - title: General Settings
       required:
@@ -101,20 +101,19 @@ spec:
                     const: true
               then:
                 properties:
-                  consumed_api:
-                    title: Consumed API
-                    type: string
-                    description: The API being consumed
-                    ui:field: EntityPicker
+                  consumed_apis:
+                    title: APIs
+                    type: array
+                    description: The APIs being consumed.
+                    ui:field: MultiEntityPicker
                     ui:options:
-                      allowedKinds:
-                        - API
-                  consumed_api_operation:
-                    title: Operation to invoke on the consumed API
+                      catalogFilter:
+                        - kind: API
+                  consumed_operation:
+                    title: Example operation to invoke on the first consumed API
                     type: string
 
   steps:
-
     - id: fetch-domain
       name: fetch domain context
       action: catalog:fetch
@@ -135,11 +134,11 @@ spec:
         entityRef: ${{ parameters.api }}
 
     - id: fetch-consumed-api
-      name: fetch consumed api context
-      if: ${{ parameters.consumes_apis }}
+      name: fetch first consumed api context
+      if: ${{ parameters.consumes_apis && parameters.consumed_apis && parameters.consumed_apis.length > 0 }}
       action: catalog:fetch
       input:
-        entityRef: ${{ parameters.consumed_api }}
+        entityRef: ${{ parameters.consumed_apis[0] }}
 
     - id: component-template
       name: render component source code
@@ -163,14 +162,15 @@ spec:
           implements_api: ${{ parameters.implements_api }}
           api_name: ${{ steps['fetch-api'].output.entity.metadata.name if parameters.implements_api else null }}
           consumes_apis: ${{ parameters.consumes_apis }}
+          consumed_apis: ${{ parameters.consumed_apis if parameters.consumes_apis else [] }}
           consumed_api_name: ${{ steps['fetch-consumed-api'].output.entity.metadata.name if parameters.consumes_apis else null }}
-          consumed_api_operation: ${{ parameters.consumed_api_operation if parameters.consumes_apis else null}}
+          consumed_api_operation: ${{ parameters.consumed_operation if parameters.consumes_apis else null }}
 
     - id: publish
       name: publish component source repository
       action: publish:github
       input:
-        allowedHosts: ['github.com']
+        allowedHosts: ["github.com"]
         description: This is ${{ parameters.component_id }}
         repoUrl: github.com?repo=${{ steps['fetch-system'].output.entity.metadata.name }}-${{ parameters.component_id }}-service&owner=${{ steps['fetch-domain'].output.entity.metadata.labels['git-org'] }}
         repoVisibility: public
@@ -184,18 +184,18 @@ spec:
       input:
         repoUrl: github.com?repo=${{ steps['fetch-system'].output.entity.metadata.name }}-${{ parameters.component_id }}-service&owner=${{ steps['fetch-domain'].output.entity.metadata.labels['git-org'] }}
         webhookUrl: https://webhook-${{ steps['fetch-system'].output.entity.metadata.name }}-${{ parameters.component_id }}-el-${{ steps['fetch-system'].output.entity.metadata.name }}-build.${{ steps['fetch-domain'].output.entity.metadata.labels['cluster-domain'] }}
-        webhookSecret: 'mysecret'
-        events: [ 'push' ]
+        webhookSecret: "mysecret"
+        events: ["push"]
         active: true
-        contentType: 'json'
+        contentType: "json"
         insecureSsl: false
 
     - id: register
       name: Register Component
       action: catalog:register
       input:
-        repoContentsUrl: '${{ steps.publish.output.repoContentsUrl }}'
-        catalogInfoPath: '/catalog-info.yaml'
+        repoContentsUrl: "${{ steps.publish.output.repoContentsUrl }}"
+        catalogInfoPath: "/catalog-info.yaml"
 
     - id: system-template
       name: render system pull request
