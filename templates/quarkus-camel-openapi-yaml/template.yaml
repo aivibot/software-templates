@@ -136,14 +136,6 @@ spec:
       input:
         entityRef: ${{ parameters.api }}
 
-    - id: fetch-consumed-api
-      name: fetch first consumed api context
-      if: ${{ parameters.consumes_apis && parameters.consumed_apis && parameters.consumed_apis.length > 0 }}
-      action: catalog:fetch
-      input:
-        entityRef: ${{ parameters.consumed_apis[0] if parameters.consumes_apis && parameters.consumed_apis.length > 0 else null }}
-        optional: true
-
     - id: component-template
       name: render component source code
       action: fetch:template
@@ -167,7 +159,7 @@ spec:
           api_name: ${{ steps['fetch-api'].output.entity.metadata.name if parameters.implements_api else null }}
           consumes_apis: ${{ parameters.consumes_apis }}
           consumed_apis: ${{ parameters.consumed_apis if parameters.consumes_apis else [] }}
-          consumed_api_name: ${{ steps['fetch-consumed-api'].output.entity.metadata.name if parameters.consumes_apis else null }}
+          consumed_api_name: ${{ parameters.consumed_apis[0] | replace('api:default/', '') if parameters.consumes_apis else null }}
           consumed_api_operation: ${{ parameters.consumed_operation if parameters.consumes_apis else null }}
 
     - id: publish
