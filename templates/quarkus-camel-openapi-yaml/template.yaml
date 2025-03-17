@@ -105,6 +105,9 @@ spec:
                     title: APIs
                     type: array
                     description: The APIs being consumed.
+                    items:
+                      type: string
+                      format: entity-reference
                     ui:field: MultiEntityPicker
                     ui:options:
                       catalogFilter:
@@ -139,6 +142,7 @@ spec:
       action: catalog:fetch
       input:
         entityRef: ${{ parameters.consumed_apis[0] if parameters.consumes_apis && parameters.consumed_apis.length > 0 else null }}
+        optional: true
 
     - id: component-template
       name: render component source code
