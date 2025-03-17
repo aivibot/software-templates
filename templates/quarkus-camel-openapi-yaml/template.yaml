@@ -138,7 +138,7 @@ spec:
       if: ${{ parameters.consumes_apis && parameters.consumed_apis && parameters.consumed_apis.length > 0 }}
       action: catalog:fetch
       input:
-        entityRef: ${{ parameters.consumed_apis[0] }}
+        entityRef: ${{ parameters.consumed_apis[0] if parameters.consumes_apis && parameters.consumed_apis.length > 0 else null }}
 
     - id: component-template
       name: render component source code
